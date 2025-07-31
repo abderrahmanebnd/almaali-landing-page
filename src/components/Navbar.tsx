@@ -21,7 +21,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-reverse space-x-2">
             <div className="text-2xl font-bold text-primary">
-              أكاديمية العلا والمعالي
+              أكاديمية زينو للتعليم والتدريب
             </div>
           </Link>
 
@@ -48,7 +48,11 @@ const Navbar = () => {
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>

@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Facebook, Phone, MessageCircle, MapPin, GraduationCap } from "lucide-react";
+import {
+  Facebook,
+  Phone,
+  MessageCircle,
+  MapPin,
+  GraduationCap,
+} from "lucide-react";
 
 const Footer = () => {
   const quickLinks = [
@@ -7,7 +13,7 @@ const Footer = () => {
     { name: "من نحن", href: "#about" },
     { name: "خدماتنا", href: "#services" },
     { name: "الشهادات", href: "#testimonials" },
-    { name: "تواصل معنا", href: "#contact" }
+    { name: "تواصل معنا", href: "#contact" },
   ];
 
   const services = [
@@ -15,7 +21,7 @@ const Footer = () => {
     "تعليم اللغات",
     "الحساب الذهني",
     "المحاضرات التدريبية",
-    "الاستشارات الأكاديمية"
+    "الاستشارات الأكاديمية",
   ];
 
   return (
@@ -30,36 +36,42 @@ const Footer = () => {
                 <GraduationCap className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-bold">أكاديمية العلا والمعالي</h3>
+                <h3 className="text-xl font-bold">
+                  أكاديمية زينو للتعليم والتدريب
+                </h3>
                 <p className="text-sm text-white/70">للتعليم والتكوين</p>
               </div>
             </div>
-            
+
             <p className="text-white/80 leading-relaxed">
-              بفكري يسمو وطني - مؤسسة تعليمية رائدة تهدف إلى تطوير قدرات الطلاب 
+              بفكري يسمو وطني - مؤسسة تعليمية رائدة تهدف إلى تطوير قدرات الطلاب
               وإعدادهم لمستقبل أكاديمي ومهني متميز.
             </p>
-            
+
             <div className="flex gap-3">
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 className="bg-blue-600 hover:bg-blue-700"
                 asChild
               >
-                <a 
-                  href="https://web.facebook.com/Academy.Almaali" 
-                  target="_blank" 
+                <a
+                  href="https://web.facebook.com/profile.php?id=100093643377386"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Facebook className="h-4 w-4" />
                 </a>
               </Button>
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 className="bg-green-600 hover:bg-green-700"
                 asChild
               >
-                <a href="https://wa.me/213791670733" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://wa.me/213791670733"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <MessageCircle className="h-4 w-4" />
                 </a>
               </Button>
@@ -72,7 +84,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a 
+                  <a
                     href={link.href}
                     className="text-white/80 hover:text-secondary transition-colors"
                   >
@@ -102,22 +114,22 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-secondary mt-1 flex-shrink-0" />
                 <div className="text-white/80">
-                  <p>إيشيليا، أمام ثانوية محمد الشريف مساعدية</p>
-                  <p>ولاية عين الدفلى، الجزائر</p>
+                  <p>حمام ضلعة بالقرب من البريد الوطني</p>
+                  <p>ولاية المسيلة، الجزائر</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-secondary" />
-                <span className="text-white/80">0791 67 07 33</span>
+                <span className="text-white/80">0778 65 01 59</span>
               </div>
-              
+
               <div className="flex items-center gap-3">
                 <MessageCircle className="h-5 w-5 text-secondary" />
                 <span className="text-white/80">واتساب متاح 24/7</span>
               </div>
             </div>
-            
+
             <div className="bg-white/10 rounded-lg p-4">
               <h5 className="font-semibold mb-2">أوقات العمل</h5>
               <div className="text-sm text-white/80 space-y-1">
@@ -140,16 +152,25 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-white/60 text-sm">
-              © 2024 أكاديمية العلا والمعالي للتعليم والتكوين. جميع الحقوق محفوظة.
+              © 2024 أكاديمية زينو للتعليم والتدريب . جميع الحقوق محفوظة.
             </div>
             <div className="flex gap-6 text-sm">
-              <a href="#" className="text-white/60 hover:text-secondary transition-colors">
+              <a
+                href="#"
+                className="text-white/60 hover:text-secondary transition-colors"
+              >
                 سياسة الخصوصية
               </a>
-              <a href="#" className="text-white/60 hover:text-secondary transition-colors">
+              <a
+                href="#"
+                className="text-white/60 hover:text-secondary transition-colors"
+              >
                 شروط الخدمة
               </a>
-              <a href="#" className="text-white/60 hover:text-secondary transition-colors">
+              <a
+                href="#"
+                className="text-white/60 hover:text-secondary transition-colors"
+              >
                 اتفاقية الاستخدام
               </a>
             </div>

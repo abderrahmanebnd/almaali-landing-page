@@ -3,7 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, MessageCircle, MapPin, Clock, Facebook, Mail } from "lucide-react";
+import {
+  Phone,
+  MessageCircle,
+  MapPin,
+  Clock,
+  Facebook,
+  Mail,
+} from "lucide-react";
 
 const ContactSection = () => {
   return (
@@ -12,7 +19,8 @@ const ContactSection = () => {
         <div className="text-center mb-16">
           <h2 className="section-title">تواصل معنا</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            نحن هنا للإجابة على جميع استفساراتكم وتقديم المساعدة اللازمة. تواصلوا معنا بأي طريقة تناسبكم
+            نحن هنا للإجابة على جميع استفساراتكم وتقديم المساعدة اللازمة.
+            تواصلوا معنا بأي طريقة تناسبكم
           </p>
         </div>
 
@@ -34,31 +42,35 @@ const ContactSection = () => {
                     <Input id="lastName" placeholder="أدخل اسم العائلة" />
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="phone">رقم الهاتف</Label>
                   <Input id="phone" type="tel" placeholder="0791 67 07 33" />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="email">البريد الإلكتروني (اختياري)</Label>
-                  <Input id="email" type="email" placeholder="example@email.com" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="example@email.com"
+                  />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="subject">الموضوع</Label>
                   <Input id="subject" placeholder="موضوع رسالتك" />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="message">الرسالة</Label>
-                  <Textarea 
-                    id="message" 
+                  <Textarea
+                    id="message"
                     placeholder="اكتب رسالتك هنا..."
                     className="min-h-[120px]"
                   />
                 </div>
-                
+
                 <Button className="w-full hero-button">
                   <Mail className="ml-2 h-5 w-5" />
                   إرسال الرسالة
@@ -77,13 +89,15 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">اتصل بنا</h3>
-                    <p className="text-muted-foreground">للاستفسارات والتسجيل</p>
+                    <p className="text-muted-foreground">
+                      للاستفسارات والتسجيل
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-2 mr-16">
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-primary" />
-                    <span className="font-medium">0791 67 07 33</span>
+                    <span className="font-medium">0778 65 01 59</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <MessageCircle className="h-4 w-4 text-primary" />
@@ -106,9 +120,9 @@ const ContactSection = () => {
                 </div>
                 <div className="mr-16">
                   <p className="leading-relaxed">
-                    إيشيليا، أمام ثانوية محمد الشريف مساعدية
+                    حمام ضلعة بالقرب من البريد الوطني
                     <br />
-                    ولاية عين الدفلى، الجزائر
+                    ولاية المسيلة، الجزائر
                   </p>
                 </div>
               </CardContent>
@@ -146,18 +160,20 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">تابعنا على فيسبوك</h3>
-                    <p className="text-muted-foreground">آخر الأخبار والإعلانات</p>
+                    <p className="text-muted-foreground">
+                      آخر الأخبار والإعلانات
+                    </p>
                   </div>
                 </div>
                 <div className="mr-16">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full hover:bg-blue-600 hover:text-white transition-colors"
                     asChild
                   >
-                    <a 
-                      href="https://web.facebook.com/Academy.Almaali" 
-                      target="_blank" 
+                    <a
+                      href="https://web.facebook.com/profile.php?id=100093643377386"
+                      target="_blank"
                       rel="noopener noreferrer"
                     >
                       <Facebook className="ml-2 h-4 w-4" />
@@ -173,12 +189,14 @@ const ContactSection = () => {
         {/* CTA Section */}
         <div className="text-center mt-16">
           <div className="bg-gradient-primary rounded-2xl p-8 text-white">
-            <h3 className="text-3xl font-bold mb-4">هل تحتاج استشارة تعليمية؟</h3>
+            <h3 className="text-3xl font-bold mb-4">
+              هل تحتاج استشارة تعليمية؟
+            </h3>
             <p className="text-xl mb-6 opacity-90">
               فريقنا التعليمي جاهز لمساعدتك في اختيار البرنامج المناسب
             </p>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-secondary text-accent-foreground hover:bg-secondary/90 font-semibold px-8"
             >
               <MessageCircle className="ml-2 h-5 w-5" />
