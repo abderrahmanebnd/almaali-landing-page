@@ -17,6 +17,10 @@ interface Course {
   description: string;
   price: string;
   level: string;
+  teacher: {
+    name: string;
+    photo: string;
+  };
 }
 
 const courses: Course[] = [
@@ -29,7 +33,11 @@ const courses: Course[] = [
     students: 25,
     description: "دورة شاملة في الرياضيات للتحضير لامتحان البكالوريا",
     price: "15,000 دج",
-    level: "متقدم"
+    level: "متقدم",
+    teacher: {
+      name: "أ. فاطمة بن علي",
+      photo: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=face"
+    }
   },
   {
     id: 2,
@@ -40,7 +48,11 @@ const courses: Course[] = [
     students: 20,
     description: "دروس تقوية في الفيزياء والكيمياء مع تطبيقات عملية",
     price: "12,000 دج",
-    level: "متقدم"
+    level: "متقدم",
+    teacher: {
+      name: "أ. محمد الحسني",
+      photo: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=100&h=100&fit=crop&crop=face"
+    }
   },
   {
     id: 3,
@@ -51,7 +63,11 @@ const courses: Course[] = [
     students: 30,
     description: "تعلم أساسيات اللغة الإنجليزية من الصفر",
     price: "8,000 دج",
-    level: "مبتدئ"
+    level: "مبتدئ",
+    teacher: {
+      name: "أ. سارة مرادي",
+      photo: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=100&h=100&fit=crop&crop=face"
+    }
   },
   {
     id: 4,
@@ -62,7 +78,11 @@ const courses: Course[] = [
     students: 15,
     description: "تطوير مهارات الحساب الذهني باستخدام السوروبان",
     price: "10,000 دج",
-    level: "مبتدئ"
+    level: "مبتدئ",
+    teacher: {
+      name: "أ. أحمد زيتوني",
+      photo: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=100&h=100&fit=crop&crop=face"
+    }
   },
   {
     id: 5,
@@ -73,7 +93,11 @@ const courses: Course[] = [
     students: 22,
     description: "دروس تقوية في البيولوجيا والجيولوجيا",
     price: "11,000 دج",
-    level: "متوسط"
+    level: "متوسط",
+    teacher: {
+      name: "أ. محمد الحسني",
+      photo: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=100&h=100&fit=crop&crop=face"
+    }
   },
   {
     id: 6,
@@ -84,7 +108,11 @@ const courses: Course[] = [
     students: 28,
     description: "تحسين مهارات التواصل باللغة الفرنسية",
     price: "9,000 دج",
-    level: "متوسط"
+    level: "متوسط",
+    teacher: {
+      name: "أ. سارة مرادي",
+      photo: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=100&h=100&fit=crop&crop=face"
+    }
   }
 ];
 
@@ -199,6 +227,20 @@ const Courses = () => {
                   <CardTitle className="text-xl">{course.title}</CardTitle>
                   <Badge variant="secondary">{course.level}</Badge>
                 </div>
+                
+                {/* Teacher Info */}
+                <div className="flex items-center gap-3 mb-3">
+                  <img 
+                    src={course.teacher.photo} 
+                    alt={course.teacher.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-primary">{course.teacher.name}</p>
+                    <p className="text-xs text-muted-foreground">المدرس</p>
+                  </div>
+                </div>
+                
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">{course.module}</Badge>
                   <Badge variant="outline">{course.year}</Badge>

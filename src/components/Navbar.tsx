@@ -9,6 +9,7 @@ const Navbar = () => {
   const navItems = [
     { title: "الرئيسية", href: "/" },
     { title: "الدورات", href: "/courses" },
+    { title: "الأساتذة", href: "/teachers" },
     { title: "عن الأكاديمية", href: "#about" },
     { title: "اتصل بنا", href: "#contact" },
   ];
