@@ -2,39 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Academy Al Maali Design System - Arabic RTL optimized
+All colors MUST be HSL. Brand colors from Facebook cover.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 250 50% 98%;
+    --foreground: 225 85% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 225 85% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 225 85% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Academy Brand Colors */
+    --primary: 232 57% 35%; /* #2B3C8B Academy Blue */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 232 57% 45%;
+    --primary-glow: 232 67% 55%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 45 100% 60%; /* Golden Yellow accent */
+    --secondary-foreground: 225 85% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 25 95% 55%; /* Orange accent */
+    --accent-foreground: 0 0% 100%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 225 15% 95%;
+    --muted-foreground: 225 25% 45%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 225 25% 88%;
+    --input: 225 25% 93%;
+    --ring: 232 57% 35%;
+
+    /* Academy Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+
+    /* Academy Shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 4px 20px hsl(var(--primary) / 0.08);
+    --shadow-button: 0 4px 15px hsl(var(--primary) / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.5rem;
 
@@ -100,6 +118,39 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-cairo;
+    direction: rtl;
+  }
+
+  [dir="ltr"] {
+    direction: ltr;
+  }
+}
+
+@layer components {
+  .hero-button {
+    @apply bg-gradient-to-r from-primary to-primary-light text-primary-foreground px-8 py-4 rounded-lg font-semibold shadow-[var(--shadow-button)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:scale-105;
+  }
+
+  .academy-card {
+    @apply bg-card rounded-xl p-6 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-1;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-foreground mb-4;
+  }
+
+  .accent-button {
+    @apply bg-gradient-to-r from-secondary to-accent text-accent-foreground px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300;
+  }
+
+  .rtl-text {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .ltr-text {
+    direction: ltr;
+    text-align: left;
   }
 }
