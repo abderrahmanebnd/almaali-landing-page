@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  Users, 
-  GraduationCap, 
-  ClipboardList, 
+import {
+  LayoutDashboard,
+  Users,
+  GraduationCap,
+  ClipboardList,
   LogOut,
   Menu,
-  X
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -26,21 +26,25 @@ const AdminLayout = () => {
     <div className="min-h-screen bg-background" dir="rtl">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <div className={cn(
-        "fixed inset-y-0 right-0 z-30 w-64 bg-card/95 backdrop-blur-sm border-l border-border shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 lg:bg-card lg:backdrop-blur-none",
-        sidebarOpen ? "translate-x-0" : "translate-x-full"
-      )}>
+      <div
+        className={cn(
+          "fixed inset-y-0 right-0 z-30 w-64 bg-card/95 backdrop-blur-sm border-l border-border shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0  lg:inset-0 lg:bg-card lg:backdrop-blur-non",
+          sidebarOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
         <div className="flex items-center justify-between h-16 px-6 border-b border-border bg-primary/5">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">أ</span>
+              <span className="text-primary-foreground font-bold text-sm">
+                أ
+              </span>
             </div>
             <h2 className="text-lg font-semibold text-primary">لوحة الإدارة</h2>
           </div>
@@ -107,7 +111,7 @@ const AdminLayout = () => {
               </span>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3">
             <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-full">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
