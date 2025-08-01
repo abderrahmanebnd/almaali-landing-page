@@ -7,6 +7,11 @@ import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import Teachers from "./pages/Teachers";
 import NotFound from "./pages/NotFound";
+import AdminLayout from "./components/admin/AdminLayout";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminStudents from "./pages/admin/Students";
+import AdminTeachers from "./pages/admin/Teachers";
+import Registrations from "./pages/admin/Registrations";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +25,15 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/teachers" element={<Teachers />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="students" element={<AdminStudents />} />
+            <Route path="teachers" element={<AdminTeachers />} />
+            <Route path="registrations" element={<Registrations />} />
+          </Route>
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
