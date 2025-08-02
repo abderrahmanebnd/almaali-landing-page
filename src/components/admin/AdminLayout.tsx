@@ -19,6 +19,7 @@ const AdminLayout = () => {
     { name: "لوحة التحكم", href: "/admin", icon: LayoutDashboard },
     { name: "الطلاب", href: "/admin/students", icon: Users },
     { name: "الأساتذة", href: "/admin/teachers", icon: GraduationCap },
+    { name: "الدورات", href: "/admin/courses", icon: ClipboardList },
     { name: "التسجيلات", href: "/admin/registrations", icon: ClipboardList },
   ];
 
