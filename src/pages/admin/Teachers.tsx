@@ -20,6 +20,12 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { useForm } from "react-hook-form";
 
 interface Teacher {
   id: number;
@@ -32,9 +38,23 @@ interface Teacher {
   status: "active" | "inactive";
 }
 
+interface TeacherFormData {
+  name: string;
+  phone: string;
+  subject: string;
+  experience: string;
+  status: boolean;
+}
+
 const Teachers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [subjectFilter, setSubjectFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingTeacher, setEditingTeacher] = useState<Teacher | null>(null);
+  const itemsPerPage = 6;
+
+  const { register, handleSubmit, reset, setValue } = useForm<TeacherFormData>();
 
   const [teachers] = useState<Teacher[]>([
     {
@@ -96,16 +116,128 @@ const Teachers = () => {
     return matchesSearch && matchesSubject;
   });
 
+  const totalPages = Math.ceil(filteredTeachers.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedTeachers = filteredTeachers.slice(startIndex, startIndex + itemsPerPage);
+
+  const onSubmit = (data: TeacherFormData) => {
+    console.log("Teacher data:", data);
+    setIsDialogOpen(false);
+    setEditingTeacher(null);
+    reset();
+  };
+
+  const handleEdit = (teacher: Teacher) => {
+    setEditingTeacher(teacher);
+    setValue("name", teacher.name);
+    setValue("phone", teacher.phone);
+    setValue("subject", teacher.subject);
+    setValue("experience", teacher.experience);
+    setValue("status", teacher.status === "active");
+    setIsDialogOpen(true);
+  };
+
+  const handleDelete = (teacherId: number) => {
+    console.log("Delete teacher:", teacherId);
+  };
+
   const subjects = ["الرياضيات", "اللغة العربية", "اللغة الإنجليزية", "العلوم الطبيعية", "الحساب الذهني"];
 
   return (
     <div className="p-6 space-y-6" dir="rtl">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-foreground">إدارة الأساتذة</h1>
-        <Button className="bg-primary hover:bg-primary/90">
-          <Plus className="ml-2 h-4 w-4" />
-          إضافة أستاذ جديد
-        </Button>
+        <Dialog open={isDialogOpen} onOpenChange={(open) => {
+          setIsDialogOpen(open);
+          if (!open) {
+            setEditingTeacher(null);
+            reset();
+          }
+        }}>
+          <DialogTrigger asChild>
+            <Button className="bg-primary hover:bg-primary/90">
+              <Plus className="ml-2 h-4 w-4" />
+              إضافة أستاذ جديد
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>
+                {editingTeacher ? "تعديل الأستاذ" : "إضافة أستاذ جديد"}
+              </DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">الاسم الكامل</Label>
+                <Input
+                  id="name"
+                  {...register("name", { required: true })}
+                  placeholder="أدخل الاسم الكامل"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="phone">رقم الهاتف</Label>
+                <Input
+                  id="phone"
+                  {...register("phone", { required: true })}
+                  placeholder="أدخل رقم الهاتف"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="subject">التخصص</Label>
+                <Select onValueChange={(value) => setValue("subject", value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر التخصص" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {subjects.map((subject) => (
+                      <SelectItem key={subject} value={subject}>
+                        {subject}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="experience">سنوات الخبرة</Label>
+                <Input
+                  id="experience"
+                  {...register("experience", { required: true })}
+                  placeholder="مثال: 5 سنوات"
+                />
+              </div>
+
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <Switch
+                  id="status"
+                  {...register("status")}
+                />
+                <Label htmlFor="status">الأستاذ نشط</Label>
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <Button type="submit" className="flex-1">
+                  {editingTeacher ? "تحديث" : "إضافة"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setIsDialogOpen(false);
+                    setEditingTeacher(null);
+                    reset();
+                  }}
+                  className="flex-1"
+                >
+                  إلغاء
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Filters */}
@@ -143,7 +275,7 @@ const Teachers = () => {
 
       {/* Teachers Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredTeachers.map((teacher) => (
+        {paginatedTeachers.map((teacher) => (
           <Card key={teacher.id} className="hover:shadow-lg transition-shadow">
             <CardHeader className="text-center">
               <Avatar className="w-20 h-20 mx-auto">
@@ -177,10 +309,10 @@ const Teachers = () => {
                   {teacher.status === "active" ? "نشط" : "غير نشط"}
                 </Badge>
                 <div className="flex gap-1">
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => handleEdit(teacher)}>
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm" className="text-destructive">
+                  <Button variant="outline" size="sm" className="text-destructive" onClick={() => handleDelete(teacher.id)}>
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -210,7 +342,7 @@ const Teachers = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredTeachers.map((teacher) => (
+                {paginatedTeachers.map((teacher) => (
                   <TableRow key={teacher.id}>
                     <TableCell>
                       <div className="flex items-center gap-3">
@@ -238,10 +370,10 @@ const Teachers = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={() => handleEdit(teacher)}>
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="sm" className="text-destructive">
+                        <Button variant="outline" size="sm" className="text-destructive" onClick={() => handleDelete(teacher.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -253,6 +385,39 @@ const Teachers = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                />
+              </PaginationItem>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <PaginationItem key={page}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(page)}
+                    isActive={currentPage === page}
+                    className="cursor-pointer"
+                  >
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      )}
     </div>
   );
 };
