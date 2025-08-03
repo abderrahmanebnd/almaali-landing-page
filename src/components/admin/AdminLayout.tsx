@@ -8,6 +8,8 @@ import {
   LogOut,
   Menu,
   X,
+  TrendingUp,
+  Book,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -20,6 +22,8 @@ const AdminLayout = () => {
     { name: "الطلاب", href: "/admin/students", icon: Users },
     { name: "الأساتذة", href: "/admin/teachers", icon: GraduationCap },
     { name: "الدورات", href: "/admin/courses", icon: ClipboardList },
+    { name: "المستويات", href: "/admin/levels", icon: TrendingUp },
+    { name: "المواد", href: "/admin/subjects", icon: Book },
     { name: "التسجيلات", href: "/admin/registrations", icon: ClipboardList },
   ];
 
