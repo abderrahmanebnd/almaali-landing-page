@@ -17,6 +17,6 @@ export const levels = [
 
 export const statusOptions = ["all", "ACTIVE", "COMPLETED", "NOT_STARTED"];
 
-export const RESULTS_PER_PAGE = 10;
+export const RESULTS_PER_PAGE = 2;
 
 //TODO:levels and subjects should be fetched from the server

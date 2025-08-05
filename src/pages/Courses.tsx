@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCourses } from "@/features/Courses/useCourses";
 import { useCoursesSearch } from "@/features/Courses/useCoursesSearch";
 import {
@@ -70,6 +70,9 @@ export default function Courses() {
   const courses = data?.courses || [];
   const totalPages = data?.totalPages || 1;
 
+  useEffect(() => {
+    setPage(1);
+  }, [status, level, debounced]);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
