@@ -131,7 +131,7 @@ const ContactSection = () => {
                 <p className="leading-relaxed">
                   إيشيليا، أمام ثانوية محمد الشريف مساعدية
                   <br />
-                  ولاية عين الدفلى، الجزائر
+                  ولاية المسيلة، الجزائر
                 </p>
               </div>
             </CardContent>

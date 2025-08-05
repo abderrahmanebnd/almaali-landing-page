@@ -114,7 +114,7 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-secondary mt-1 flex-shrink-0" />
                 <div className="text-white/80">
                   <p>إيشيليا، أمام ثانوية محمد الشريف مساعدية</p>
-                  <p>ولاية عين الدفلى، الجزائر</p>
+                  <p>ولاية المسيلة، الجزائر</p>
                 </div>
               </div>
 

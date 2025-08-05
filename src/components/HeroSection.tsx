@@ -77,8 +77,7 @@ const HeroSection = () => {
             <div className=" text-white flex items-center gap-1 space-x-2">
               <Building className="h-5 w-5 text-secondary inline-block mr-2" />
               <span>
-                إيشيليا أمام ثانوية محمد الشريف مساعدية, ولاية عين الدفلى،
-                الجزائر
+                إيشيليا أمام ثانوية محمد الشريف مساعدية, ولاية المسيلة، الجزائر
               </span>
             </div>
             <a
