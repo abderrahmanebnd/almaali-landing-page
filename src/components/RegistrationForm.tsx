@@ -1,7 +1,3 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import {
   Dialog,
   DialogContent,
@@ -24,40 +20,28 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/components/ui/use-toast";
 import { X } from "lucide-react";
-
-interface Course {
-  id: number;
-  title: string;
-  module: string;
-  year: string;
-  duration: string;
-  students: number;
-  description: string;
-  price: string;
-  level: string;
-  teacher: {
-    name: string;
-    photo: string;
-  };
-}
-
-interface Level {
-  id: string;
-  name: string;
-  description?: string;
-}
-
-type RegistrationStatus = "pending" | "approved" | "rejected" | "cancelled";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import axiosPrivate from "@/api/axios";
+import useLevels from "@/features/Levels/useLevels";
+import type { Course } from "@/lib/type";
+import { useNavigate } from "react-router-dom";
 
 const registrationSchema = z.object({
-  fullName: z.string().min(2, "الاسم الكامل مطلوب"),
-  phone: z.string().min(10, "رقم الهاتف مطلوب"),
-  levelId: z.string().optional(),
+  fullName: z.string().min(1, "الاسم مطلوب"),
+  phone: z
+    .string()
+    .regex(/^0[5-7]\d{8}$/, "رقم الهاتف غير صالح. مثال: 0551234567"),
+  courseId: z.string().min(1, "يرجى اختيار دورة"),
+  levelId: z.string().min(1, "يرجى اختيار  مستوى التلميذ"),
+  status: z.string(),
   notes: z.string().optional(),
 });
 
@@ -68,20 +52,11 @@ interface RegistrationFormProps {
   onClose: () => void;
 }
 
-// Sample levels data (in a real app, this would come from an API)
-const levels: Level[] = [
-  { id: "1", name: "السنة الأولى ثانوي", description: "المستوى الأول" },
-  { id: "2", name: "السنة الثانية ثانوي", description: "المستوى الثاني" },
-  { id: "3", name: "السنة الثالثة ثانوي", description: "المستوى الثالث" },
-  { id: "4", name: "السنة الأولى متوسط", description: "المتوسط الأول" },
-  { id: "5", name: "السنة الثانية متوسط", description: "المتوسط الثاني" },
-  { id: "6", name: "السنة الثالثة متوسط", description: "المتوسط الثالث" },
-  { id: "7", name: "السنة الرابعة متوسط", description: "المتوسط الرابع" },
-];
-
 const RegistrationForm = ({ course, onClose }: RegistrationFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const levels = useLevels(); // ⬅️ dynamic levels from API or state
+  const navigate = useNavigate();
 
   const form = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
@@ -90,33 +65,23 @@ const RegistrationForm = ({ course, onClose }: RegistrationFormProps) => {
       phone: "",
       levelId: "",
       notes: "",
+      courseId: course.id.toString(),
+      status: "PENDING",
     },
   });
 
-  const onSubmit = async (data: RegistrationFormData) => {
+  const onSubmit = async (values: RegistrationFormData) => {
     setIsSubmitting(true);
-    
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const registrationData = {
-        ...data,
-        courseId: course.id.toString(),
-        createdAt: new Date().toISOString(),
-        status: "pending" as RegistrationStatus,
-        Course: course,
-        Level: data.levelId ? levels.find(l => l.id === data.levelId) : undefined,
-      };
+      await axiosPrivate.post("/api/v1/registrations", values);
 
-      console.log("Registration submitted:", registrationData);
-      
       toast({
         title: "تم التسجيل بنجاح",
-        description: "سيتم مراجعة طلبك والتواصل معك قريباً",
       });
-      
-      onClose();
+
+      form.reset(); // ⬅️ Reset the form
+      onClose(); // ⬅️ Close modal
+      navigate("/");
     } catch (error) {
       toast({
         title: "خطأ في التسجيل",
@@ -149,12 +114,8 @@ const RegistrationForm = ({ course, onClose }: RegistrationFormProps) => {
         <div className="bg-muted/50 rounded-lg p-4 mb-6">
           <h3 className="font-semibold text-lg mb-2">{course.title}</h3>
           <div className="flex flex-wrap gap-2 mb-2">
-            <Badge variant="secondary">{course.module}</Badge>
-            <Badge variant="outline">{course.year}</Badge>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">المدة: {course.duration}</span>
-            <span className="font-bold text-primary">{course.price}</span>
+            <Badge variant="secondary">{course.subject.name}</Badge>
+            <Badge variant="outline">{course.level.name}</Badge>
           </div>
         </div>
 
@@ -193,8 +154,11 @@ const RegistrationForm = ({ course, onClose }: RegistrationFormProps) => {
               name="levelId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>المستوى الدراسي (اختياري)</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormLabel>المستوى الدراسي *</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="اختر مستواك الدراسي" />
@@ -220,10 +184,10 @@ const RegistrationForm = ({ course, onClose }: RegistrationFormProps) => {
                 <FormItem>
                   <FormLabel>ملاحظات إضافية (اختياري)</FormLabel>
                   <FormControl>
-                    <Textarea 
+                    <Textarea
                       placeholder="أي ملاحظات أو أسئلة خاصة..."
                       className="min-h-[100px]"
-                      {...field} 
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -231,17 +195,17 @@ const RegistrationForm = ({ course, onClose }: RegistrationFormProps) => {
               )}
             />
 
+            {/* Hidden Fields */}
+            <input type="hidden" {...form.register("courseId")} />
+            <input type="hidden" {...form.register("status")} />
+
             <div className="flex gap-3 pt-4">
-              <Button 
-                type="submit" 
-                className="flex-1"
-                disabled={isSubmitting}
-              >
+              <Button type="submit" className="flex-1" disabled={isSubmitting}>
                 {isSubmitting ? "جاري التسجيل..." : "تسجيل"}
               </Button>
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={onClose}
                 disabled={isSubmitting}
               >

@@ -34,22 +34,28 @@ import CourseDialog from "@/features/Courses/CourseDialog";
 import axiosPrivate from "@/api/axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { RESULTS_PER_PAGE, statusOptions } from "@/lib/constants";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import useLevels from "@/features/Levels/useLevels";
 import { Link } from "react-router-dom";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import RegistrationForm from "@/components/RegistrationForm";
 
 export default function Courses() {
   const levels = useLevels();
 
-  const queryClient = useQueryClient();
-  const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState("ACTIVE");
   const [level, setLevel] = useState("all");
   const [page, setPage] = useState(1);
-  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const { searchTerm, setSearchTerm, debounced } = useCoursesSearch();
 
   const { data, isLoading, refetch } = useCourses({
@@ -63,27 +69,6 @@ export default function Courses() {
 
   const courses = data?.courses || [];
   const totalPages = data?.totalPages || 1;
-
-  const openEdit = (course: Course) => {
-    setEditingCourse(course);
-    setIsDialogOpen(true);
-  };
-
-  const openAdd = () => {
-    setEditingCourse(null);
-    setIsDialogOpen(true);
-  };
-
-  const handleDelete = async (courseId: string) => {
-    if (confirm("هل أنت متأكد من حذف هذه الدورة؟")) {
-      await axiosPrivate.delete(`/api/v1/courses/${courseId}`);
-      await queryClient.invalidateQueries({
-        predicate: (query) =>
-          Array.isArray(query.queryKey) && query.queryKey[0] === "courses",
-      });
-      await refetch();
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -116,7 +101,7 @@ export default function Courses() {
               />
               <Select
                 onValueChange={(val) => setStatus(val)}
-                defaultValue="all"
+                defaultValue="ACTIVE"
               >
                 <SelectTrigger className="w-[180px] bg-gray-100 border border-gray-300">
                   <SelectValue placeholder="الحالة" />
@@ -156,16 +141,42 @@ export default function Courses() {
         {/* Courses */}
         <div className="p-6 space-y-6">
           <div className="rounded-md border overflow-x-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
               {courses.map((course) => (
                 <Card
                   key={course.id}
-                  className="hover:shadow-lg transition-shadow duration-200"
+                  className="hover:shadow-lg transition-shadow duration-200 flex flex-col"
                 >
+                  <img
+                    src={course.imageUrl || "/images/fallback-course.svg"}
+                    alt={course.title}
+                    className="w-full h-48 object-cover rounded-t-md"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // prevent infinite loop
+                      target.src = "/images/fallback-course.svg";
+                    }}
+                  />
+
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
                       <CardTitle className="text-xl">{course.title}</CardTitle>
-                      <Badge variant="secondary">{course.level.name}</Badge>
+                      <Badge
+                        className={cn(
+                          "capitalize text-xm ",
+                          course.status === "ACTIVE"
+                            ? "bg-green-100 text-green-800 border-green-200 hover:bg-green-100"
+                            : course.status === "COMPLETED"
+                            ? "bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-100"
+                            : "bg-yellow-100 text-yellow-800 border-yellow-200"
+                        )}
+                      >
+                        {course.status === "ACTIVE"
+                          ? "نشطة"
+                          : course.status === "COMPLETED"
+                          ? "مكتملة"
+                          : "لم تبدأ"}
+                      </Badge>
                     </div>
 
                     {/* Teacher Info */}
@@ -175,11 +186,16 @@ export default function Courses() {
                           key={teacher.name}
                           className="flex items-center gap-3"
                         >
-                          <img
-                            src={teacher.imageUrl}
-                            alt={teacher.name}
-                            className="w-10 h-10 rounded-full object-cover"
-                          />
+                          <Avatar className="w-14 h-14">
+                            <AvatarImage
+                              src={teacher.imageUrl}
+                              alt={teacher.name}
+                            />
+                            <AvatarFallback className="text-lg">
+                              {teacher.name.split(" ")[0].charAt(0) +
+                                teacher.name.split(" ")[1]?.charAt(0)}
+                            </AvatarFallback>
+                          </Avatar>
                           <div>
                             <p className="text-sm font-medium text-primary">
                               {teacher.name}
@@ -198,30 +214,35 @@ export default function Courses() {
                     </div>
                   </CardHeader>
 
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">
+                  <CardContent className="flex-1">
+                    <p className="text-muted-foreground mb-4 whitespace-break-spaces line-clamp-3">
                       {course.description}
                     </p>
 
                     <div className="space-y-2 mb-4 text-sm text-muted-foreground flex items-center  ">
                       <BookOpen className="size-4 ml-2 block mt-2" />
-                      <span>السعر: {course.price}</span>
+                      <span>السعر: {course.price} دج</span>
                     </div>
-
-                    <div className="flex flex-col sm:flex-row-reverse gap-2">
-                      <Link className="flex-1" to={`/courses/${course.id}`}>
+                  </CardContent>
+                  <CardFooter>
+                    <div className="flex flex-col sm:flex-row w-full gap-2   ">
+                      {course.status !== "COMPLETED" && (
                         <Button
                           variant="outline"
                           className="w-full hover:bg-primary hover:text-white transition-colors"
+                          onClick={() => {
+                            setSelectedCourse(course);
+                            setShowRegistrationForm(true);
+                          }}
                         >
                           سجل الآن
                         </Button>
-                      </Link>
+                      )}
                       <Link className="flex-1" to={`/courses/${course.id}`}>
                         <Button className="w-full">المزيد من التفاصيل</Button>
                       </Link>
                     </div>
-                  </CardContent>
+                  </CardFooter>
                 </Card>
               ))}
             </div>
@@ -279,7 +300,18 @@ export default function Courses() {
           )}
 
           {/* Empty State */}
-          {courses.length === 0 && (
+          {isLoading && (
+            <div className="flex flex-col items-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-primary border-solid mb-4"></div>
+              <h3 className="text-lg font-semibold mb-2">
+                جاري تحميل الدورات...
+              </h3>
+              <p className="text-muted-foreground">
+                يرجى الانتظار بينما نقوم بجلب البيانات
+              </p>
+            </div>
+          )}
+          {!isLoading && courses.length === 0 && (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📚</div>
               <h3 className="text-xl font-semibold mb-2">
@@ -293,7 +325,12 @@ export default function Courses() {
           )}
         </div>
       </div>
-
+      {showRegistrationForm && (
+        <RegistrationForm
+          course={selectedCourse}
+          onClose={() => setShowRegistrationForm(false)}
+        />
+      )}
       <Footer />
     </div>
   );
