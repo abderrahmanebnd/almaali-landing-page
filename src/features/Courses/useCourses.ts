@@ -21,11 +21,9 @@ export const useCourses = ({
       if (page) params.append("page", String(page));
       if (limit) params.append("limit", String(limit));
 
-      console.log(`/api/v1/courses?${params.toString()}`);
       const { data } = await axiosPrivate.get(
         `/api/v1/courses?${params.toString()}`
       );
-      console.log("Fetched courses data:", data.data);
       const {
         data: courses,
         pagination: { currentPage, totalCount, totalPages },

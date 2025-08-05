@@ -12,7 +12,6 @@ export const useTeachers = ({ search, subject, page, limit }: TeacherQuery) => {
       if (page) params.append("page", String(page));
       if (limit) params.append("limit", String(limit));
 
-      console.log(`/api/v1/teachers?${params.toString()}`);
       const { data } = await axiosPrivate.get(
         `/api/v1/teachers?${params.toString()}`
       );
