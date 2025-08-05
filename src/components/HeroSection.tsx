@@ -1,23 +1,35 @@
 import { Button } from "@/components/ui/button";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone, MessageCircle, Building } from "lucide-react";
 import heroImage from "@/assets/hero-banner.jpg";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-hero relative overflow-hidden">
+    <section
+      className="min-h-screen flex items-center justify-center bg-gradient-hero relative overflow-hidden"
+      id="home"
+    >
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-20">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-              <circle cx="30" cy="30" r="2" fill="white" fillOpacity="0.1"/>
+            <pattern
+              id="dots"
+              x="0"
+              y="0"
+              width="60"
+              height="60"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="30" cy="30" r="2" fill="white" fillOpacity="0.1" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#dots)" />
         </svg>
       </div>
-      
-      <div className="container mx-auto px-4 relative z-10">
+
+      <div className="container mx-auto px-4 relative z-10 py-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="text-center lg:text-right space-y-8">
@@ -32,51 +44,56 @@ const HeroSection = () => {
                 بفكري يسمو وطني
               </p>
               <p className="text-lg text-white/80 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                نحن نؤمن بأن التعليم هو الأساس لبناء مستقبل مشرق. انضم إلينا في رحلة التعلم والتطوير المستمر.
+                نحن نؤمن بأن التعليم هو الأساس لبناء مستقبل مشرق. انضم إلينا في
+                رحلة التعلم والتطوير المستمر.
               </p>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="hero-button text-lg px-8 py-6 min-w-[200px]"
+                onClick={() => navigate("/courses")}
               >
                 التسجيل الآن
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="bg-white/10 border-white/30 text-white hover:bg-white/20 text-lg px-8 py-6 min-w-[200px] backdrop-blur-sm"
-              >
-                <Phone className="ml-2 h-5 w-5" />
-                اتصل بنا
-              </Button>
+              <a href="tel:+213791670733" target="_blank" className="w-full">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="bg-white/10 border-white/30 text-white hover:bg-white/20 text-lg px-8 py-6 min-w-[200px] backdrop-blur-sm w-full sm:w-fit"
+                >
+                  <Phone className="ml-2 h-5 w-5" />
+                  اتصل بنا
+                </Button>
+              </a>
             </div>
 
-            {/* Contact Info */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end items-center text-white/90">
-              <div className="flex items-center gap-2">
-                <MessageCircle className="h-5 w-5 text-secondary" />
-                <span className="font-medium">واتساب: 0791 67 07 33</span>
-              </div>
-              <div className="text-sm">
-                إيشيليا أمام ثانوية محمد الشريف مساعدية
-              </div>
+            {/* Contact Info 
+            //TODO: add google maps link and change the 15 years to the actual years of experience and the actual number of students
+
+            */}
+            <div className=" text-white flex items-center gap-1 space-x-2">
+              <Building className="h-5 w-5 text-secondary inline-block mr-2" />
+              <span>
+                إيشيليا أمام ثانوية محمد الشريف مساعدية, ولاية عين الدفلى،
+                الجزائر
+              </span>
             </div>
           </div>
 
           {/* Hero Image */}
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-[var(--shadow-elegant)]">
-              <img 
-                src={heroImage} 
+              <img
+                src={heroImage}
                 alt="أكاديمية العلا والمعالي"
                 className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
             </div>
-            
+
             {/* Floating stats cards */}
             <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-lg">
               <div className="text-center">
@@ -84,10 +101,12 @@ const HeroSection = () => {
                 <div className="text-sm text-muted-foreground">طالب متفوق</div>
               </div>
             </div>
-            
+
             <div className="absolute -top-6 -left-6 bg-secondary rounded-xl p-4 shadow-lg">
               <div className="text-center">
-                <div className="text-2xl font-bold text-accent-foreground">15+</div>
+                <div className="text-2xl font-bold text-accent-foreground">
+                  15+
+                </div>
                 <div className="text-sm text-accent-foreground">سنة خبرة</div>
               </div>
             </div>

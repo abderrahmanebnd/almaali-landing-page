@@ -7,11 +7,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { title: "الرئيسية", href: "/" },
-    { title: "الدورات", href: "/courses" },
-    { title: "الأساتذة", href: "/teachers" },
-    { title: "عن الأكاديمية", href: "#about" },
-    { title: "اتصل بنا", href: "#contact" },
+    { title: "الرئيسية", href: "/", type: "link" },
+    { title: "الدورات", href: "/courses", type: "link" },
+    { title: "الأساتذة", href: "/teachers", type: "link" },
+    { title: "عن الأكاديمية", href: "/#about", type: "anchor" },
+    { title: "اتصل بنا", href: "/#contact", type: "anchor" },
   ];
 
   return (
@@ -27,18 +27,34 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-reverse space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.title}
-                to={item.href}
-                className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium"
-              >
-                {item.title}
-              </Link>
-            ))}
-            <Button size="sm" className="mr-4">
-              التسجيل الآن
-            </Button>
+            {navItems.map((item) => {
+              if (item.type === "link") {
+                return (
+                  <Link
+                    key={item.title}
+                    to={item.href}
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium"
+                  >
+                    {item.title}
+                  </Link>
+                );
+              } else {
+                return (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium"
+                  >
+                    {item.title}
+                  </a>
+                );
+              }
+            })}
+            <Link to="/courses">
+              <Button size="sm" className="mr-4">
+                التسجيل الآن
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -48,7 +64,11 @@ const Navbar = () => {
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>
@@ -68,9 +88,11 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <Button size="sm" className="w-full">
-                  التسجيل الآن
-                </Button>
+                <Link to="/courses">
+                  <Button size="sm" className="w-full">
+                    التسجيل الآن
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

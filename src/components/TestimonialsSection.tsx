@@ -3,49 +3,56 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Star, Quote } from "lucide-react";
 
 const TestimonialsSection = () => {
+  //TODO: Replace with actual testimonials data with real ones
   const testimonials = [
     {
       name: "أم أحمد",
       role: "ولي أمر",
-      content: "ابني أحمد تحسن كثيراً في الرياضيات بعد انضمامه للأكاديمية. المدرسون مختصون والمتابعة ممتازة.",
+      content:
+        "ابني أحمد تحسن كثيراً في الرياضيات بعد انضمامه للأكاديمية. المدرسون مختصون والمتابعة ممتازة.",
       rating: 5,
-      initials: "أم أ"
+      initials: "أم أ",
     },
     {
       name: "سارة بن علي",
       role: "طالبة ثانوي",
-      content: "دروس اللغة الفرنسية هنا ساعدتني كثيراً في تحسين درجاتي. الأساتذة يشرحون بطريقة مبسطة ومفهومة.",
+      content:
+        "دروس اللغة الفرنسية هنا ساعدتني كثيراً في تحسين درجاتي. الأساتذة يشرحون بطريقة مبسطة ومفهومة.",
       rating: 5,
-      initials: "س ب"
+      initials: "س ب",
     },
     {
       name: "محمد الطاهر",
       role: "طالب متوسط",
-      content: "تعلمت السوروبان هنا وأصبحت أحسب بسرعة مذهلة! زملائي في المدرسة يتعجبون من سرعتي في الحساب.",
+      content:
+        "تعلمت السوروبان هنا وأصبحت أحسب بسرعة مذهلة! زملائي في المدرسة يتعجبون من سرعتي في الحساب.",
       rating: 5,
-      initials: "م ط"
+      initials: "م ط",
     },
     {
       name: "فاطمة زهراء",
       role: "طالبة ابتدائي",
-      content: "أحب دروس التقوية هنا لأن المعلمة تشرح بصبر وتعطينا تمارين ممتعة. درجاتي تحسنت كثيراً!",
+      content:
+        "أحب دروس التقوية هنا لأن المعلمة تشرح بصبر وتعطينا تمارين ممتعة. درجاتي تحسنت كثيراً!",
       rating: 5,
-      initials: "ف ز"
+      initials: "ف ز",
     },
     {
       name: "أبو يوسف",
       role: "ولي أمر",
-      content: "أكاديمية متميزة بحق. ابنتي يوسف تطورت كثيراً في اللغة الإنجليزية والرياضيات. أنصح بها بقوة.",
+      content:
+        "أكاديمية متميزة بحق. ابنتي يوسف تطورت كثيراً في اللغة الإنجليزية والرياضيات. أنصح بها بقوة.",
       rating: 5,
-      initials: "أ ي"
+      initials: "أ ي",
     },
     {
       name: "ليلى كريم",
       role: "طالبة ثانوي",
-      content: "المحاضرات التدريبية ساعدتني في تطوير مهاراتي الشخصية وأصبحت أكثر ثقة بنفسي.",
+      content:
+        "المحاضرات التدريبية ساعدتني في تطوير مهاراتي الشخصية وأصبحت أكثر ثقة بنفسي.",
       rating: 5,
-      initials: "ل ك"
-    }
+      initials: "ل ك",
+    },
   ];
 
   const renderStars = (rating: number) => {
@@ -60,12 +67,13 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-subtle">
+    <section className="py-20 bg-gradient-subtle" id="testimonials">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="section-title">شهادات طلابنا وأولياء الأمور</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            نفخر بثقة طلابنا وأولياء الأمور، وهذه بعض من شهاداتهم التي تحفزنا للاستمرار في التميز
+            نفخر بثقة طلابنا وأولياء الأمور، وهذه بعض من شهاداتهم التي تحفزنا
+            للاستمرار في التميز
           </p>
         </div>
 
@@ -73,23 +81,23 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="academy-card border-0 relative">
               <Quote className="absolute top-4 left-4 h-8 w-8 text-primary/20" />
-              
+
               <CardContent className="p-6 pt-12">
                 <div className="flex items-center gap-1 mb-4">
                   {renderStars(testimonial.rating)}
                 </div>
-                
+
                 <p className="text-muted-foreground leading-relaxed mb-6 italic">
                   "{testimonial.content}"
                 </p>
-                
+
                 <div className="flex items-center gap-3">
                   <Avatar className="h-12 w-12">
                     <AvatarFallback className="bg-gradient-primary text-white font-semibold">
                       {testimonial.initials}
                     </AvatarFallback>
                   </Avatar>
-                  
+
                   <div>
                     <h4 className="font-semibold text-foreground">
                       {testimonial.name}

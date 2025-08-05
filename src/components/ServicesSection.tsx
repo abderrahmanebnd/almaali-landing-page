@@ -1,19 +1,33 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Languages, Calculator, Users, BookOpen, Trophy } from "lucide-react";
+import {
+  GraduationCap,
+  Languages,
+  Calculator,
+  Users,
+  BookOpen,
+  Trophy,
+} from "lucide-react";
 import educationIcons from "@/assets/education-icons.jpg";
 import sorobanImage from "@/assets/soroban-abacus.jpg";
+import { Link } from "react-router-dom";
 
 const ServicesSection = () => {
+  // TODO:MAKE THIS REAL
   const services = [
     {
       icon: GraduationCap,
       title: "دروس تقوية ودعم جميع الأطوار",
-      description: "برامج دعم تعليمي شاملة لجميع المراحل من الابتدائي إلى الثانوي",
-      features: ["دروس فردية ومجموعات صغيرة", "مراجعة الامتحانات", "متابعة يومية"],
+      description:
+        "برامج دعم تعليمي شاملة لجميع المراحل من الابتدائي إلى الثانوي",
+      features: [
+        "دروس فردية ومجموعات صغيرة",
+        "مراجعة الامتحانات",
+        "متابعة يومية",
+      ],
       badge: "الأكثر طلباً",
-      color: "bg-primary"
+      color: "bg-primary",
     },
     {
       icon: Languages,
@@ -21,23 +35,25 @@ const ServicesSection = () => {
       description: "دورات متخصصة في اللغات العربية والفرنسية والإنجليزية",
       features: ["محادثة وتطبيق عملي", "قواعد وإملاء", "تحضير امتحانات دولية"],
       badge: "جديد",
-      color: "bg-secondary"
+      color: "bg-secondary",
     },
     {
       icon: Calculator,
       title: "الحساب الذهني السوروبان",
-      description: "تطوير مهارات الحساب الذهني والتركيز باستخدام تقنية السوروبان اليابانية",
+      description:
+        "تطوير مهارات الحساب الذهني والتركيز باستخدام تقنية السوروبان اليابانية",
       features: ["تطوير الذاكرة", "سرعة الحساب", "تقوية التركيز"],
       badge: "مميز",
-      color: "bg-accent"
+      color: "bg-accent",
     },
     {
       icon: Users,
       title: "محاضرات وملتقيات تدريبية",
-      description: "فعاليات تعليمية وورش عمل لتطوير المهارات الشخصية والأكاديمية",
+      description:
+        "فعاليات تعليمية وورش عمل لتطوير المهارات الشخصية والأكاديمية",
       features: ["ورش تطوير الذات", "مهارات القيادة", "التحضير الجامعي"],
       badge: "",
-      color: "bg-primary-light"
+      color: "bg-primary-light",
     },
     {
       icon: BookOpen,
@@ -45,7 +61,7 @@ const ServicesSection = () => {
       description: "استشارات أكاديمية ومهنية لتوجيه الطلاب نحو المسار المناسب",
       features: ["توجيه أكاديمي", "استشارات مهنية", "خطط دراسية مخصصة"],
       badge: "",
-      color: "bg-gradient-primary"
+      color: "bg-gradient-primary",
     },
     {
       icon: Trophy,
@@ -53,17 +69,18 @@ const ServicesSection = () => {
       description: "إعداد خاص للمسابقات الأكاديمية والامتحانات التنافسية",
       features: ["مسابقات الرياضيات", "أولمبياد العلوم", "مسابقات اللغات"],
       badge: "نتائج مميزة",
-      color: "bg-gradient-accent"
-    }
+      color: "bg-gradient-accent",
+    },
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background" id="services">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="section-title">خدماتنا التعليمية</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            نقدم مجموعة شاملة من الخدمات التعليمية المصممة لتلبية احتياجات طلابنا في جميع المراحل الدراسية
+            نقدم مجموعة شاملة من الخدمات التعليمية المصممة لتلبية احتياجات
+            طلابنا في جميع المراحل الدراسية
           </p>
         </div>
 
@@ -71,8 +88,8 @@ const ServicesSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
           <Card className="academy-card border-0 overflow-hidden">
             <div className="relative h-48">
-              <img 
-                src={educationIcons} 
+              <img
+                src={educationIcons}
                 alt="خدمات تعليمية متنوعة"
                 className="w-full h-full object-cover"
               />
@@ -83,7 +100,7 @@ const ServicesSection = () => {
             </div>
             <CardContent className="p-6">
               <p className="text-muted-foreground leading-relaxed">
-                نوفر برامج تعليمية متنوعة تغطي جميع التخصصات والمراحل الدراسية، 
+                نوفر برامج تعليمية متنوعة تغطي جميع التخصصات والمراحل الدراسية،
                 مع التركيز على الفهم العميق والتطبيق العملي للمفاهيم.
               </p>
             </CardContent>
@@ -91,8 +108,8 @@ const ServicesSection = () => {
 
           <Card className="academy-card border-0 overflow-hidden">
             <div className="relative h-48">
-              <img 
-                src={sorobanImage} 
+              <img
+                src={sorobanImage}
                 alt="الحساب الذهني السوروبان"
                 className="w-full h-full object-cover"
               />
@@ -103,8 +120,8 @@ const ServicesSection = () => {
             </div>
             <CardContent className="p-6">
               <p className="text-muted-foreground leading-relaxed">
-                تعلم فن الحساب الذهني السريع باستخدام تقنية السوروبان اليابانية التقليدية، 
-                التي تطور قدرات الدماغ والتركيز بشكل مذهل.
+                تعلم فن الحساب الذهني السريع باستخدام تقنية السوروبان اليابانية
+                التقليدية، التي تطور قدرات الدماغ والتركيز بشكل مذهل.
               </p>
             </CardContent>
           </Card>
@@ -113,27 +130,30 @@ const ServicesSection = () => {
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Card key={index} className="academy-card border-0 group relative overflow-hidden">
+            <Card
+              key={index}
+              className="academy-card border-0 group relative overflow-hidden"
+            >
               {service.badge && (
-                <Badge 
-                  className="absolute top-4 left-4 z-10 bg-secondary text-accent-foreground"
-                >
+                <Badge className="absolute top-4 left-4 z-10 bg-secondary text-accent-foreground">
                   {service.badge}
                 </Badge>
               )}
-              
+
               <CardHeader className="pb-4">
-                <div className={`w-16 h-16 ${service.color} rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div
+                  className={`w-16 h-16 ${service.color} rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                >
                   <service.icon className="h-8 w-8 text-white" />
                 </div>
                 <CardTitle className="text-xl">{service.title}</CardTitle>
               </CardHeader>
-              
+
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground leading-relaxed">
                   {service.description}
                 </p>
-                
+
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center gap-2 text-sm">
@@ -142,9 +162,9 @@ const ServicesSection = () => {
                     </li>
                   ))}
                 </ul>
-                
-                <Button 
-                  variant="outline" 
+
+                <Button
+                  variant="outline"
                   className="w-full mt-4 hover:bg-primary hover:text-white transition-colors"
                 >
                   اعرف المزيد
@@ -157,24 +177,34 @@ const ServicesSection = () => {
         {/* CTA Section */}
         <div className="text-center mt-16">
           <div className="bg-gradient-primary rounded-2xl p-8 text-white">
-            <h3 className="text-3xl font-bold mb-4">مستعد لبدء رحلتك التعليمية؟</h3>
+            <h3 className="text-3xl font-bold mb-4">
+              مستعد لبدء رحلتك التعليمية؟
+            </h3>
             <p className="text-xl mb-6 opacity-90">
               انضم إلى آلاف الطلاب الذين حققوا أحلامهم معنا
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-secondary text-accent-foreground hover:bg-secondary/90 font-semibold px-8"
+              <Link to="/courses">
+                <Button
+                  size="lg"
+                  className="bg-secondary text-accent-foreground hover:bg-secondary/90 font-semibold px-8"
+                >
+                  سجل الآن
+                </Button>
+              </Link>
+              <a
+                href="tel:+213791670733"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                سجل الآن
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-primary font-semibold px-8"
-              >
-                تواصل معنا
-              </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-primary hover:bg-white hover:text-primary font-semibold px-8"
+                >
+                  تواصل معنا
+                </Button>
+              </a>
             </div>
           </div>
         </div>
