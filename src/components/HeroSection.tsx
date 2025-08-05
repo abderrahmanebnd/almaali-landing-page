@@ -100,7 +100,7 @@ const HeroSection = () => {
               <img
                 src={heroImage}
                 alt="أكاديمية العلا والمعالي"
-                className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
+                className="w-full h-[300px] md:h-[400px] lg:h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
             </div>
