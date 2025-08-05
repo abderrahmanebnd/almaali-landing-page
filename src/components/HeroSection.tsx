@@ -58,7 +58,7 @@ const HeroSection = () => {
               >
                 التسجيل الآن
               </Button>
-              <a href="tel:+213791670733" target="_blank" className="w-full">
+              <a href="tel:+213540951369" target="_blank" className="w-full">
                 <Button
                   size="lg"
                   variant="outline"
@@ -81,6 +81,17 @@ const HeroSection = () => {
                 الجزائر
               </span>
             </div>
+            <a
+              href="https://wa.me/213540951369"
+              target="_blank"
+              className="flex items-center gap-2 hover:underline -mt-2"
+            >
+              <MessageCircle className="h-5 w-5 text-secondary" />
+              <span className="text-white font-bold">الواتساب:</span>
+              <span className="text-white/80" dir="ltr">
+                0540951369
+              </span>
+            </a>
           </div>
 
           {/* Hero Image */}

@@ -8,13 +8,13 @@ import {
   Users,
   BookOpen,
   Trophy,
+  Laptop,
 } from "lucide-react";
 import educationIcons from "@/assets/education-icons.jpg";
 import sorobanImage from "@/assets/soroban-abacus.jpg";
 import { Link } from "react-router-dom";
 
 const ServicesSection = () => {
-  // TODO:MAKE THIS REAL
   const services = [
     {
       icon: GraduationCap,
@@ -34,8 +34,17 @@ const ServicesSection = () => {
       title: "تعليم اللغات",
       description: "دورات متخصصة في اللغات العربية والفرنسية والإنجليزية",
       features: ["محادثة وتطبيق عملي", "قواعد وإملاء", "تحضير امتحانات دولية"],
-      badge: "جديد",
+      badge: "",
       color: "bg-secondary",
+    },
+    {
+      icon: Laptop, // You can use any appropriate icon, like `Laptop`, `Globe`, or reuse `BookOpen`
+      title: "دروس أون لاين",
+
+      description: "تعلم من منزلك عبر الإنترنت مع دوراتنا",
+      features: ["تفاعل مباشر مع الأساتذة", "مواد تعليمية رقمية محدثة"],
+      badge: "",
+      color: "bg-gradient-accent",
     },
     {
       icon: Calculator,
@@ -62,14 +71,6 @@ const ServicesSection = () => {
       features: ["توجيه أكاديمي", "استشارات مهنية", "خطط دراسية مخصصة"],
       badge: "",
       color: "bg-gradient-primary",
-    },
-    {
-      icon: Trophy,
-      title: "تحضير المسابقات",
-      description: "إعداد خاص للمسابقات الأكاديمية والامتحانات التنافسية",
-      features: ["مسابقات الرياضيات", "أولمبياد العلوم", "مسابقات اللغات"],
-      badge: "نتائج مميزة",
-      color: "bg-gradient-accent",
     },
   ];
 
@@ -162,13 +163,14 @@ const ServicesSection = () => {
                     </li>
                   ))}
                 </ul>
-
-                <Button
-                  variant="outline"
-                  className="w-full mt-4 hover:bg-primary hover:text-white transition-colors"
-                >
-                  اعرف المزيد
-                </Button>
+                <Link to={"/courses"}>
+                  <Button
+                    variant="outline"
+                    className="w-full mt-4 hover:bg-primary hover:text-white transition-colors"
+                  >
+                    اعرف المزيد
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
@@ -193,7 +195,7 @@ const ServicesSection = () => {
                 </Button>
               </Link>
               <a
-                href="tel:+213791670733"
+                href="tel:+213540951369"
                 target="_blank"
                 rel="noopener noreferrer"
               >

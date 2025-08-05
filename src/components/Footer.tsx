@@ -16,13 +16,13 @@ const Footer = () => {
     { name: "تواصل معنا", href: "/#contact" },
   ];
 
-  // TODO use real services
   const services = [
     "دروس تقوية ودعم",
     "تعليم اللغات",
     "الحساب الذهني",
     "المحاضرات التدريبية",
     "الاستشارات الأكاديمية",
+    "دروس أونلاين",
   ];
 
   return (
@@ -66,9 +66,8 @@ const Footer = () => {
                 className="bg-green-600 hover:bg-green-700"
                 asChild
               >
-                {/* TODO:make this correct */}
                 <a
-                  href="https://wa.me/213791670733"
+                  href="https://wa.me/213540951369"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -120,33 +119,40 @@ const Footer = () => {
               </div>
 
               <a
-                href="tel:+213791670733"
+                href="tel:+213540951369"
                 target="_blank"
-                className="flex items-center gap-3"
+                className="flex items-center gap-3 hover:underline"
               >
                 <Phone className="h-5 w-5 text-secondary" />
                 <span className="text-white/80" dir="ltr">
-                  0791 67 07 33
+                  05 40 95 13 69
+                </span>
+              </a>
+              <a
+                href="tel:+213660146718"
+                target="_blank"
+                className="flex items-center gap-3 hover:underline"
+              >
+                <Phone className="h-5 w-5 text-secondary" />
+                <span className="text-white/80" dir="ltr">
+                  06 60 14 67 18
                 </span>
               </a>
 
               <div className="flex items-center gap-3">
                 <MessageCircle className="h-5 w-5 text-secondary" />
-                <span className="text-white/80">واتساب متاح 24/7</span>
+                <span className="text-white/80" dir="ltr">
+                  واتساب متاح
+                </span>
               </div>
             </div>
 
             <div className="bg-white/10 rounded-lg p-4">
-              {/* TODO:CHANGE WORKING TIMES */}
               <h5 className="font-semibold mb-2">أوقات العمل</h5>
               <div className="text-sm text-white/80 space-y-1">
                 <div className="flex justify-between">
-                  <span>السبت - الخميس</span>
-                  <span>8:00 - 18:00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>الجمعة</span>
-                  <span>14:00 - 18:00</span>
+                  <span>طوال الأسبوع</span>
+                  <span>8:00 - 17:00</span>
                 </div>
               </div>
             </div>

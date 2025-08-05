@@ -94,14 +94,24 @@ const ContactSection = () => {
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-primary" />
                   <span className="font-medium" dir="ltr">
-                    0791 67 07 33
+                    06 60 14 67 18{" "}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MessageCircle className="h-4 w-4 text-primary" />
-                  {/* TODO:CHANGE THE WHATSAPP NUMBER */}
-                  <span>واتساب متاح 24/7</span>
+                  <Phone className="h-4 w-4 text-primary" />
+                  <span className="font-medium" dir="ltr">
+                    05 40 95 13 69
+                  </span>
                 </div>
+                <a
+                  href="https://wa.me/213540951369"
+                  target="_blank"
+                  className=" flex items-center gap-2 underline"
+                >
+                  <MessageCircle className="h-4 w-4 text-primary" />
+
+                  <span>واتساب متاح</span>
+                </a>
               </div>
             </CardContent>
           </Card>
@@ -140,13 +150,8 @@ const ContactSection = () => {
               </div>
               <div className="space-y-2 mr-16">
                 <div className="flex justify-between">
-                  {/* TODO:change times */}
-                  <span>السبت - الخميس</span>
-                  <span className="font-medium">8:00 - 18:00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>الجمعة</span>
-                  <span className="font-medium">14:00 - 18:00</span>
+                  <span>طوال الأسبوع</span>
+                  <span className="font-medium">8:00 - 17:00</span>
                 </div>
               </div>
             </CardContent>
