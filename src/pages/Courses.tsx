@@ -323,7 +323,7 @@ export default function Courses() {
               <p className="text-muted-foreground mb-4">
                 لم نجد أي دورات تطابق معايير البحث المحددة
               </p>
-              <Button>إعادة تعيين الفلاتر</Button>
+              {/* <Button>إعادة تعيين الفلاتر</Button> */}
             </div>
           )}
         </div>
